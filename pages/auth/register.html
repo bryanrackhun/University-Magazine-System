@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../assests/css/form_style.css">
+    <title>Magazine System</title>
+</head>
+<body>
+
+    <div class="form_container">
+        <h1>Register for an Account</h1>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <input type="radio" id="male" name="gender" value="male" required class="inline-input">
+                <label for="male" class="inline-label">Male</label>
+                <input type="radio" id="female" name="gender" value="female" required>
+                <label for="female" class="inline-label">Female</label>
+            </div>
+
+            <div class="form-group">
+                <label for="faculty">Faculty:</label>
+                <select id="faculty" name="faculty" required>
+                    <option value="">--Select Faculty--</option>
+                    <option value="computing">Architecture, Computing & Humanities</option>
+                    <option value="business">Business School</option>
+                    <option value="education">Education & Health</option>
+                    <option value="engineering">Engineering & Science</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Register as:</label>
+                <select id="role" name="role" required>
+                    <option value="student">Student</option>
+                    <option value="guest">Guest</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register">
+                <input type="reset" value="Cancel">
+            </div>
+        </form>
+    </div> 
+</body>
+</html>

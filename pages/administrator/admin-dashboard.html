@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazine System</title>
+    <link rel="stylesheet" href="../../assests/css/adm-dash.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+</head>
+
+<body>
+  
+    <header>
+        <div class="logosec">
+            <div class="logo">UniMag Admin</div>
+            <span class="material-symbols-outlined menuicn" id="menuicn">menu</span>
+        </div>
+
+        <div class="searchbar">
+            <input type="text" placeholder="Search Users, Faculties, Academic Years...">
+            <div class="searchbtn">
+              <span class="material-symbols-outlined search-icon">search</span>
+            </div>
+        </div>
+
+        <div class="message">
+            <div class="last-login">
+                <span class="login-label">Last login:</span> 
+                <span class="login-time">21 Feb 2026, 08:00 AM</span>
+            </div>
+            <button class="cta-btn">+ Add New User</button>
+            <div class="notification-icon">
+                <div class="circle"></div>
+                <span class="material-symbols-outlined notif-icon">notifications</span>
+            </div>
+            <div class="dp">
+              <img src="https://media.geeksforgeeks.org/wp-content/uploads/20221210180014/profile-removebg-preview.png"
+                    class="dpicn" 
+                    alt="profile">
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="navcontainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <div class="nav-option option1">
+                        <span class="material-symbols-outlined nav-icon">dashboard</span>
+                        <h3>Dashboard</h3>
+                    </div>
+
+                    <div class="nav-option option2">
+                        <span class="material-symbols-outlined nav-icon">manage_accounts</span>
+                        <h3>Manage Users</h3>
+                    </div>
+
+                    <div class="nav-option option3">
+                        <span class="material-symbols-outlined nav-icon">badge</span>
+                        <h3>Assign Roles</h3>
+                    </div>
+
+                    <div class="nav-option option4">
+                        <span class="material-symbols-outlined nav-icon">calendar_month</span>
+                        <h3>Manage Academic Years</h3>
+                    </div>
+
+                    <div class="nav-option option5">
+                        <span class="material-symbols-outlined nav-icon">account_balance</span>
+                        <h3>Manage Faculties</h3>
+                    </div>
+
+                    <div class="nav-option logout">
+                        <span class="material-symbols-outlined nav-icon">logout</span>
+                        <h3>Logout</h3>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        
+        <div class="main">
+            <div class="box-container">
+                <div class="box box1">
+                    <div class="text">
+                        <h2 class="topic-heading">342</h2>
+                        <h2 class="topic">Total Registered Users</h2>
+                    </div>
+                </div>
+                <div class="box box2">
+                    <div class="text">
+                        <h2 class="topic-heading">8</h2>
+                        <h2 class="topic">Configured Faculties</h2>
+                    </div>
+                </div>
+                <div class="box box3">
+                    <div class="text">
+                        <h2 class="topic-heading">2025/26</h2>
+                        <h2 class="topic">Active Academic Year</h2>
+                    </div>
+                </div>
+                <div class="box box4">
+                    <div class="text">
+                        <h2 class="topic-heading">6</h2>
+                        <h2 class="topic">Pending Role Approvals</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                
+                <div class="card project-overview">
+                    <div class="card-header">
+                        <h2>System Users Overview</h2>
+                        <button class="secondary-btn">
+                            <span class="material-symbols-outlined btn-icon">group_add</span> Manage All Users
+                        </button>
+                    </div>
+                    <p>Distribution of registered user roles within the system.</p>
+                    <div class="progress-bar">
+                      <div class="progress-fill" style="width: 85%;"></div>
+                    </div>
+                    <ul class="task-list">
+                      <li class="success">Students - <span>290 Accounts</span></li>
+                      <li class="pending">Marketing Coordinators - <span>8 Accounts</span></li>
+                      <li class="pending">Marketing Managers - <span>2 Accounts</span></li>
+                      <li class="overdue">Guests - <span>40 Accounts</span></li>
+                    </ul>
+                </div>
+              
+                <div class="card milestone-tracking">
+                    <h2>Academic Year Config</h2>
+                    <p>Current timeline settings for the active Academic Year.</p>
+                    <ul class="task-list">
+                      <li class="success">2025-2026 Year <span>Active</span></li>
+                      <li class="pending">Submission Closure <span>14 Days Left</span></li>
+                      <li class="overdue">Final Closure <span>Not Set</span></li>
+                    </ul>
+                </div>
+              
+                <div class="card task-management">
+                    <h2>Faculty Setup</h2>
+                    <p>Quick view of configured faculties and assigned coordinators.</p>
+                    <ul class="task-list">
+                      <li class="success">Faculty of Science <span>Configured</span></li>
+                      <li class="success">Faculty of Arts <span>Configured</span></li>
+                      <li class="pending">Faculty of IT <span>Missing Coordinator</span></li>
+                    </ul>
+                </div>
+
+                <div class="card resource-allocation">
+                    <h2>Recent Role Assignments</h2>
+                    <p>Latest changes to user roles and access permissions.</p>
+                    <ul class="resource-list">
+                        <li>J. Doe <span>Assigned: M. Coordinator</span></li>
+                        <li>S. Smith <span>Assigned: Guest</span></li>
+                        <li>A. Johnson <span>Assigned: Admin</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../assests/js/adm-dash.js"></script>
+</body>
+</html>
