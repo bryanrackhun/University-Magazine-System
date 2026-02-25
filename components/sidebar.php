@@ -6,9 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assests/css/adm-dash.css?v=<?php echo time(); ?>">
-    <link rel="stylesheet" href="../../assests/css/form_style.css?v=<?php echo time(); ?>">
-    <title>Document</title>
+    <link rel="stylesheet" href="../../assests/css/layout.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../assests/css/adm_style.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Magazine System</title>
 </head>
 <body>
     <div class="navcontainer">
