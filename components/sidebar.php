@@ -48,5 +48,5 @@
         </nav>
     </div>
 </body>
-<script src="../../assests/js/adm-dash.js"></script>
+<script src="../../assests/js/script.js"></script>
 </html>

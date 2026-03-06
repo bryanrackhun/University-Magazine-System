@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Panel - Magazine System</title>
+    <title>Magazine System</title>
     <link rel="stylesheet" href="../../assests/css/style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../../assests/css/stud_style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -27,7 +27,7 @@
                         Upload Contribution
                     </button>
                 </div>
-
+    
                 <h2 class="widget-title" style="margin-top: 35px;">My Previous Submissions</h2>
                 
                 <div class="card">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="post-content">
-                        <p class="post-text">Submitted on: March 1, 2026. Includes 1 Word document and 3 images.</p>
+                        <p class="post-text">Submitted on: March 1, 2026. Includes 1 Word document and 2 images.</p>
                     </div>
                     <div class="post-actions">
                         <button class="cta-btn btn-sm">Edit Submission</button>
@@ -120,6 +120,7 @@
             </form>
         </div>
     </div>
+    <?php include '../../components/footer.php'; ?>
 </body>
-<script src="../../assests/js/stud-panel.js"></script>
+<script src="../../assests/js/script.js"></script>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UniMag Portal</title>
+    <title>University Magazine System</title>
     <link rel="stylesheet" href="../../assests/css/style.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="../../assests/css/layout.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -12,7 +12,7 @@
 <body>
     <header>
         <div class="logosec">
-            <div class="logo">UniMag Portal</div>
+            <div class="logo">UniMag System</div>
             <span class="material-symbols-outlined menuicn" id="menuicn">menu</span>
         </div>
 
