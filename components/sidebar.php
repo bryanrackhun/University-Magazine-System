@@ -39,11 +39,6 @@
                     <span class="material-symbols-outlined nav-icon">account_balance</span>
                     <h3>Manage Faculties</h3>
                 </a>
-                
-                <a href="../../pages/auth/login.html" class="nav-option logout">
-                    <span class="material-symbols-outlined nav-icon">logout</span>
-                    <h3>Logout</h3>
-                </a>
             </div>
         </nav>
     </div>
