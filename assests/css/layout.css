@@ -29,7 +29,6 @@ header {
   color: var(--primary-navy);
 }
 
-.searchbar,
 .message,
 .logosec {
   display: flex;
@@ -43,34 +42,6 @@ header {
 
 .logosec {
   gap: 15px;
-}
-
-.searchbar {
-  flex: 1;
-  max-width: 450px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  background-color: var(--secondary-light-blue);
-  padding: 0 15px;
-  border-radius: 8px;
-}
-
-.searchbar input {
-  width: 100%;
-  background: none;
-  border: none;
-  outline: none;
-  padding: 0 10px;
-  font-size: 14px;
-  color: var(--primary-navy);
-}
-
-.searchbtn {
-  display: flex;
-  align-items: center;
-  color: var(--primary-navy);
-  cursor: pointer;
 }
 
 .message {
@@ -151,26 +122,35 @@ header {
   top: -2px;
   border: 2px solid var(--bg-white);
 }
-
-.dp {
-  height: 40px;
-  width: 40px;
-  background-color: var(--secondary-light-blue);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 2px solid var(--secondary-light-blue);
+.user-profile-container {
+    position: relative;
+    display: inline-block;
 }
 
-.dpicn {
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 8px;
+  color: var(--primary-navy);
+  transition: background-color 0.2s;
+}
+
+.profile-btn:hover {
+  background-color: var(--bg-page);
+}
+
+.profile-icon {
+  font-size: 36px; 
+  color: var(--text-light);
 }
 
 .profile-dropdown-menu {
+  display: none;
   position: absolute;
   top: 100%;
   right: 0;
@@ -183,6 +163,55 @@ header {
   margin-top: 15px;
   min-width: 150px;
 }
+
+.profile-dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-header {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--secondary-light-blue);
+  font-size: 12px;
+  color: var(--text-light);
+  background-color: var(--bg-page);
+  text-transform: uppercase;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 15px;
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background-color: var(--bg-page);
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: var(--secondary-light-blue);
+  margin: 0;
+  border: none;
+}
+
+/* Specific styling for the logout button in the menu */
+.dropdown-item.text-danger {
+  color: var(--status-overdue);
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: #fff3f3;
+}
+
+
+
+
 
 .main-container {
   display: block;
