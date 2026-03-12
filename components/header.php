@@ -17,9 +17,10 @@
         </div>
 
         <div class="message">
-            <div class="last-login">
-                <span class="login-label">Last login:</span> 
-                <span class="login-time">21 Feb 2026, 08:00 AM</span>
+
+            <div class="last-login-container">
+                <span class="login-label">Last login:</span>
+                <span class="login-timestamp">21 Feb 2026, <br> 08:00 AM</span>
             </div>
             
             <div class="notification-icon">
