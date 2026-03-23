@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="form_container">
-        <form action="" method="GET">
+        <form action="login_process.php" method="POST">
             <h1>Login to Your Account</h1>
             <div class="form-group">
                 <label for="username">Username:</label>

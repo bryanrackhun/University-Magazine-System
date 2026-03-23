@@ -1,3 +1,10 @@
+<?php
+include __DIR__ . '/../config/db_connection.php';
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +24,6 @@
         </div>
 
         <div class="message">
-
             <div class="last-login-container">
                 <span class="login-label">Last login:</span>
                 <span class="login-timestamp">21 Feb 2026, <br> 08:00 AM</span>
@@ -42,13 +48,14 @@
                         <span class="material-symbols-outlined">person</span> View Profile
                     </a>
                     <hr class="dropdown-divider">
-                    <a href="../../backend/logout.php" class="dropdown-item text-danger">
+                    <a href="../../auth/logout.php" class="dropdown-item text-danger">
                         <span class="material-symbols-outlined">logout</span> Logout
                     </a>
                 </div>
             </div>
         </div>
     </header>
+    
 </body>
 <script >
     document.addEventListener('DOMContentLoaded', function() {

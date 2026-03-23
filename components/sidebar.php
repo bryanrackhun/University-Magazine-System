@@ -1,5 +1,6 @@
 <?php 
     $current_page = basename($_SERVER['PHP_SELF']); 
+    $base_url = '/magazine_system';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,33 +13,40 @@
     <title>Magazine System</title>
 </head>
 <body>
-    <div class="navcontainer">
+   <div class="navcontainer">
         <nav class="nav">
             <div class="nav-upper-options">
-                <a href="../../pages/administrator/admin-dashboard.php" class="nav-option <?php echo ($current_page == 'admin-dashboard.php') ? 'option1' : ''; ?>">
+                
+                <a href="<?php echo $base_url; ?>/pages/administrator/admin-dashboard.php" class="nav-option <?php echo ($current_page == 'admin-dashboard.php') ? 'option1' : ''; ?>">
                     <span class="material-symbols-outlined nav-icon">dashboard</span>
                     <h3>Dashboard</h3>
                 </a>
+
+                <a href="<?php echo $base_url; ?>/components/statistics.php" class="nav-option <?php echo ($current_page == 'statistics.php') ? 'option1' : ''; ?>">
+                    <span class="material-symbols-outlined nav-icon">bar_chart</span>
+                    <h3>Reports</h3>
+                </a>
                 
-                <a href="../../pages/administrator/manage-users.php" class="nav-option <?php echo ($current_page == 'manage-users.php' || $current_page == 'edit-user.php') ? 'option1' : ''; ?>">
+                <a href="<?php echo $base_url; ?>/pages/administrator/manage-users.php" class="nav-option <?php echo ($current_page == 'manage-users.php' || $current_page == 'edit-user.php') ? 'option1' : ''; ?>">
                     <span class="material-symbols-outlined nav-icon">manage_accounts</span>
                     <h3>Manage Users</h3>
                 </a>
                 
-                <a href="../../pages/administrator/assign-roles.php" class="nav-option <?php echo ($current_page == 'assign-roles.php') ? 'option1' : ''; ?>">
+                <a href="<?php echo $base_url; ?>/pages/administrator/assign-roles.php" class="nav-option <?php echo ($current_page == 'assign-roles.php') ? 'option1' : ''; ?>">
                     <span class="material-symbols-outlined nav-icon">badge</span>
                     <h3>Assign Roles</h3>
                 </a>
                 
-                <a href="../../pages/administrator/manage-academic-years.php" class="nav-option <?php echo ($current_page == 'manage-academic-years.php') ? 'option1' : ''; ?>">
+                <a href="<?php echo $base_url; ?>/pages/administrator/manage-academic-years.php" class="nav-option <?php echo ($current_page == 'manage-academic-years.php') ? 'option1' : ''; ?>">
                     <span class="material-symbols-outlined nav-icon">calendar_month</span>
                     <h3>Manage Academic Years</h3>
                 </a>
                 
-                <a href="../../pages/administrator/manage-faculties.php" class="nav-option <?php echo ($current_page == 'manage-faculties.php') ? 'option1' : ''; ?>">
+                <a href="<?php echo $base_url; ?>/pages/administrator/manage-faculties.php" class="nav-option <?php echo ($current_page == 'manage-faculties.php') ? 'option1' : ''; ?>">
                     <span class="material-symbols-outlined nav-icon">account_balance</span>
                     <h3>Manage Faculties</h3>
                 </a>
+
             </div>
         </nav>
     </div>
