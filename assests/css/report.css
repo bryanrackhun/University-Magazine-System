@@ -1,7 +1,73 @@
+
 .stats-header {
     margin-bottom: 30px;
     border-bottom: 2px solid var(--secondary-light-blue);
-    padding-bottom: 15px;
+    padding-bottom: 20px;
+    margin-top: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+.stats-header .header-titles h1 {
+    color: var(--primary-navy);
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+.stats-header .header-titles p {
+    color: var(--text-light);
+    font-size: 14px;
+    margin: 0;
+}
+
+
+.filter-container {
+    background: var(--bg-white);
+    padding: 12px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid var(--secondary-light-blue);
+    gap: 12px;
+}
+.filter-container label {
+    font-weight: 600;
+    color: var(--primary-navy);
+    font-size: 15px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.filter-container select {
+    padding: 8px 30px 8px 12px;
+    border: 2px solid #e1e5eb;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    font-weight: 600;
+    color: var(--text-dark);
+    outline: none;
+    cursor: pointer;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.filter-container select:focus {
+    border-color: var(--primary-navy);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
+}
+.year-badge {
+    background-color: var(--bg-page);
+    color: var(--primary-navy);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border: 1px solid var(--secondary-light-blue);
+    vertical-align: middle;
+    margin-left: 10px;
 }
 .stats-header h1 {
     color: var(--primary-navy);

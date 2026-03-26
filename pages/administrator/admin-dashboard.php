@@ -1,3 +1,7 @@
+<?php
+$required_role = 1; 
+require_once "../auth/check-role.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

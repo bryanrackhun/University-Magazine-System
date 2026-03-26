@@ -3,6 +3,7 @@ include __DIR__ . '/../config/db_connection.php';
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +25,20 @@ if (session_status() == PHP_SESSION_NONE) {
         </div>
 
         <div class="message">
+            
             <div class="last-login-container">
-                <span class="login-label">Last login:</span>
-                <span class="login-timestamp">21 Feb 2026, <br> 08:00 AM</span>
+                <?php if (empty($_SESSION['previous_login'])): ?>
+                    <span class="login-label" style="text-align: right; font-size: 13px;">Welcome!</span>
+                    <span class="login-timestamp">This is your first login.</span>
+                <?php else: ?>
+                    <span class="login-label">Last login:</span>
+                    <span class="login-timestamp">
+                        <?php 
+                            $prev_login = strtotime($_SESSION['previous_login']);
+                            echo date('d M Y,', $prev_login) . '<br>' . date('h:i A', $prev_login); 
+                        ?>
+                    </span>
+                <?php endif; ?>
             </div>
             
             <div class="notification-icon">
@@ -35,8 +47,11 @@ if (session_status() == PHP_SESSION_NONE) {
             </div>
 
             <div class="user-profile-container">
-                <button class="profile-btn" id="profileDropdownBtn">
-                    <span class="material-symbols-outlined profile-icon">account_circle</span>
+                <button class="profile-btn" id="profileDropdownBtn" style="display: flex; align-items: center; gap: 8px; background: none; border: none; cursor: pointer;">
+                    <?php 
+                        $pf_img = !empty($_SESSION['profile_picture']) ? $_SESSION['profile_picture'] : 'default_pf.jpg';
+                    ?>
+                    <img src="../../uploads/profile_pics/<?php echo htmlspecialchars($pf_img); ?>" alt="Profile Picture" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid #4a90e2;">
                     <span class="material-symbols-outlined" style="font-size: 18px;">expand_more</span>
                 </button>
 
@@ -44,11 +59,11 @@ if (session_status() == PHP_SESSION_NONE) {
                     <div class="dropdown-header">
                         <strong>My Account</strong>
                     </div>
-                    <a href="#" class="dropdown-item">
+                    <a href="../../backend/edit-profile.php" class="dropdown-item">
                         <span class="material-symbols-outlined">person</span> View Profile
                     </a>
                     <hr class="dropdown-divider">
-                    <a href="../../auth/logout.php" class="dropdown-item text-danger">
+                    <a href="../../pages/auth/logout.php" class="dropdown-item text-danger">
                         <span class="material-symbols-outlined">logout</span> Logout
                     </a>
                 </div>
@@ -57,24 +72,25 @@ if (session_status() == PHP_SESSION_NONE) {
     </header>
     
 </body>
-<script >
+<script>
     document.addEventListener('DOMContentLoaded', function() {
-    const profileBtn = document.getElementById('profileDropdownBtn');
-    const dropdownMenu = document.getElementById('profileDropdownMenu');
+        const profileBtn = document.getElementById('profileDropdownBtn');
+        const dropdownMenu = document.getElementById('profileDropdownMenu');
 
-    if (profileBtn && dropdownMenu) {
-        
-        profileBtn.addEventListener('click', function(event) {
-            event.stopPropagation();
-            dropdownMenu.classList.toggle('show');
-        });
+        if (profileBtn && dropdownMenu) {
+            
+            profileBtn.addEventListener('click', function(event) {
+                event.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
 
-        window.addEventListener('click', function(event) {
-            if (!profileBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.classList.remove('show');
-            }
-        });
-    }
+            window.addEventListener('click', function(event) {
+                if (!profileBtn.contains(event.target) && !dropdownMenu.contains(event.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        }
     });
 </script>
+<script src="../../assests/js/script.js"></script>
 </html>

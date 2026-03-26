@@ -4,6 +4,7 @@
   gap: 20px;
   margin-bottom: 40px;
   width: 100%;
+  margin-top: 70px;
 }
 
 .box {
@@ -66,7 +67,6 @@
   width: 100%;
   max-width: 100%;
   min-width: 0; 
-  overflow-x: hidden;
 }
 
 .card h2 {
@@ -84,13 +84,8 @@
   line-height: 1.5;
 }
 
-.project-overview {
-  grid-column: 1/-1;
-}
-
-.milestone-tracking, .resource-allocation, .task-management {
-  grid-column: auto;
-}
+.project-overview { grid-column: 1/-1; }
+.milestone-tracking, .resource-allocation, .task-management { grid-column: auto; }
 
 .progress-bar {
   background: var(--secondary-light-blue);
@@ -131,17 +126,10 @@
   font-size: 0.85rem;
 }
 
-.task-list li.success {
-  border-left-color: var(--status-success);
-}
+.task-list li.success { border-left-color: var(--status-success); }
+.task-list li.pending { border-left-color: var(--status-pending); }
+.task-list li.overdue { border-left-color: var(--status-overdue); }
 
-.task-list li.pending {
-  border-left-color: var(--status-pending);
-}
-
-.task-list li.overdue {
-  border-left-color: var(--status-overdue);
-}
 
 .form-grid {
   display: grid;
@@ -187,15 +175,10 @@
   gap: 15px;
   margin-top: 10px;
 }
-
-.admin-table-container {
-  width: 100%;
+/* GLOBAL DASHBOARD TABLES */
+.admin-table-container, .card {
   overflow-x: auto;
-  margin-top: 20px;
-  border-radius: 8px;
-  border: 1px solid var(--secondary-light-blue);
   -webkit-overflow-scrolling: touch;
-  display: block;
 }
 
 .admin-table-container::-webkit-scrollbar {
@@ -212,64 +195,66 @@
   border-radius: 8px;
 }
 
-.admin-table {
+
+.main table, .admin-table {
   width: 100%;
   min-width: 600px;
   border-collapse: collapse;
-  text-align: left;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 15px;
+  font-size: 14px;
 }
 
-.admin-table th,
-.admin-table td {
+.main th, .main td, .admin-table th, .admin-table td {
+  padding: 14px 15px;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
   white-space: nowrap;
 }
 
-.admin-table th {
-  background-color: var(--secondary-light-blue);
-  color: var(--primary-navy);
-  padding: 15px;
+.main th, .admin-table th {
+  background-color: #f8f9fa;
   font-weight: 600;
-  font-size: 14px;
+  color: #2c3e50;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.5px;
 }
 
-.admin-table td {
-  padding: 15px;
-  border-bottom: 1px solid var(--secondary-light-blue);
-  font-size: 14px;
+.main td, .admin-table td {
   color: var(--text-dark);
 }
 
-.admin-table tr:last-child td {
+.main tr:last-child td, .admin-table tr:last-child td {
   border-bottom: none;
 }
 
-.admin-table tr:hover {
-  background-color: #f8fbff;
+.main tbody tr:hover, .admin-table tbody tr:hover {
+  background-color: #f8faff;
+  transition: background-color 0.2s ease;
 }
 
 .role-badge {
+  display: inline-block;
   padding: 5px 12px;
   border-radius: 50px;
   font-size: 12px;
   font-weight: 600;
-  display: inline-block;
+  text-align: center;
   white-space: nowrap;
 }
 
-.badge-student {
-  background-color: var(--secondary-light-blue);
-  color: var(--primary-navy);
-}
+/* Deadline & Status Badges */
+.badge-open { background-color: #d4edda; color: #28a745; border: 1px solid #28a745; }
+.badge-closed { background-color: #f8d7da; color: #dc3545; border: 1px solid #dc3545; }
+.badge-warning { background-color: #fff3cd; color: #856404; border: 1px solid #ffeeba; }
 
-.badge-coordinator {
-  background-color: #e8f5e9;
-  color: var(--status-success);
-}
-
-.badge-manager {
-  background-color: #fff3cd;
-  color: #856404;
-}
+/* User Role Badges */
+.badge-student { background-color: var(--secondary-light-blue); color: var(--primary-navy); }
+.badge-coordinator { background-color: #e8f5e9; color: var(--status-success); }
+.badge-manager { background-color: #fff3cd; color: #856404; }
 
 @media screen and (max-width: 1100px) {
   .dashboard-grid {
@@ -280,6 +265,7 @@
 @media screen and (max-width: 850px) {
   .dashboard-grid {
     grid-template-columns: 1fr !important;
+    margin-top: 70px;
   }
   .card {
     padding: 20px 15px; 
@@ -293,8 +279,7 @@
   .form-group.full-width {
     grid-column: span 1 !important;
   }
-  .admin-table th, 
-  .admin-table td {
+  .main th, .main td, .admin-table th, .admin-table td {
     padding: 10px; 
     font-size: 13px; 
   }

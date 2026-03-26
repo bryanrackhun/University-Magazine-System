@@ -1,3 +1,70 @@
+<?php
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+
+$required_role = 3;
+require_once "../../pages/auth/check-role.php";
+require_once "../../config/db_connection.php";
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_review'])) {
+    $contributionid = intval($_POST['contributionid']);
+    $status = $_POST['status']; 
+    
+   
+    if (!in_array($status, ['selected', 'rejected'])) {
+        die("Invalid status selection.");
+    }
+
+    try {
+        // Update the contribution status in the database
+        $sql = "UPDATE tblcontribution SET status = ? WHERE contributionid = ?";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$status, $contributionid]);
+
+        // Redirect back to dashboard with success message
+        header("Location: manage-contribution.php?msg=reviewed");
+        exit();
+    } catch (PDOException $e) {
+        die("Database Error: " . $e->getMessage());
+    }
+}
+
+
+if (!isset($_GET['id'])) {
+    header("Location: manage-contribution.php");
+    exit();
+}
+
+$contributionid = intval($_GET['id']);
+$coordinator_id = $_SESSION['userid'];
+
+// Fetch Coordinator's Faculty
+$stmt_fac = $pdo->prepare("SELECT facultyid FROM tbluser WHERE userid = ?");
+$stmt_fac->execute([$coordinator_id]);
+$facultyid = $stmt_fac->fetchColumn();
+
+// Fetch the specific submission (Ensure it belongs to this coordinator's faculty)
+$sql = "SELECT c.*, u.username, u.email, cat.categoryname 
+        FROM tblcontribution c
+        JOIN tbluser u ON c.studentid = u.userid
+        JOIN tblcategory cat ON c.categoryid = cat.categoryid
+        WHERE c.contributionid = ? AND u.facultyid = ?";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$contributionid, $facultyid]);
+$article = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$article) {
+    die("Error: Article not found or you do not have permission to review it.");
+}
+
+$bg = "#fff3cd"; $color = "#856404"; 
+if(strtolower($article['status']) == 'selected') { $bg = "#d4edda"; $color = "#155724"; }
+if(strtolower($article['status']) == 'rejected') { $bg = "#f8d7da"; $color = "#721c24"; }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,110 +90,103 @@
                 </a>
             </div>
 
-            <div class="review-grid">
+            <div class="review-grid" style="display: grid; grid-template-columns: 2fr 1fr; gap: 25px;">
                 
-                <div class="review-card">
-                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;">
-                        <h2 style="margin: 0; color: var(--primary-navy);">Submission Details</h2>
-                        <span class="status-warning" style="background-color: var(--bg-page); padding: 5px 12px; border-radius: 20px; border: 1px solid #ffd700;">Pending Review</span>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Article Title</div>
-                        <div class="detail-value" style="font-size: 18px; font-weight: 600;">The Future of AI on Campus</div>
-                    </div>
-
-                    <div class="detail-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px;">
                         <div>
-                            <div class="detail-label">Student Author</div>
-                            <div class="detail-value">Alex Johnson</div>
+                            <h1 style="margin: 0 0 10px 0; color: var(--primary-navy);"><?php echo htmlspecialchars($article['title']); ?></h1>
+                            <div style="display: flex; gap: 15px; color: #666; font-size: 14px;">
+                                <span><strong style="color: #333;">Author:</strong> <?php echo htmlspecialchars($article['username']); ?></span>
+                                <span><strong style="color: #333;">Category:</strong> <?php echo htmlspecialchars($article['categoryname']); ?></span>
+                                <span><strong style="color: #333;">Submitted:</strong> <?php echo date("M d, Y", strtotime($article['submission_date'])); ?></span>
+                            </div>
                         </div>
-                        <div>
-                            <div class="detail-label">Submission Date</div>
-                            <div class="detail-value">March 1, 2026</div>
-                        </div>
-                    </div>
-
-                    <div class="detail-row">
-                        <div class="detail-label">Student's Description</div>
-                        <div class="detail-value" style="font-size: 14px; line-height: 1.6; color: var(--text-light);">
-                            An overview of how artificial intelligence is changing study habits and research methodologies among first-year IT students.
-                        </div>
-                    </div>
-
-                    <h3 style="font-size: 15px; color: var(--primary-navy); margin: 25px 0 15px;">Attached Files</h3>
-                    
-                    <div class="file-box">
-                        <div class="file-info">
-                            <span class="material-symbols-outlined">description</span>
-                            Main_Article_AI.docx
-                        </div>
-                        <button type="button" class="btn-secondary open-preview-btn" style="padding: 6px 15px; font-size: 12px; background-color: var(--bg-white);">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span> Preview File
-                        </button>
-                    </div>
-
-                    <div class="file-box">
-                        <div class="file-info">
-                            <span class="material-symbols-outlined">image</span>
-                            Campus_AI_Lab.jpg
-                        </div>
-                        <button type="button" class="btn-secondary open-preview-btn" style="padding: 6px 15px; font-size: 12px; background-color: var(--bg-white);">
-                            <span class="material-symbols-outlined" style="font-size: 16px;">visibility</span> Preview Image
-                        </button>
-                    </div>
-                </div>
-
-                <div class="review-card" style="border-top: 4px solid var(--accent-gold);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
-                        <h2 style="margin: 0; color: var(--primary-navy);">Coordinator Action</h2>
-                        <span style="font-size: 13px; font-weight: 600; color: var(--status-overdue);">
-                            <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: text-bottom;">timer</span>
-                            10 Days Left
+                        <span class="role-badge" style="background: <?php echo $bg; ?>; color: <?php echo $color; ?>; padding: 8px 15px; font-size: 14px;">
+                            Status: <?php echo strtoupper(htmlspecialchars($article['status'])); ?>
                         </span>
                     </div>
-                    
-                    <form action="../../backend/submit_review.php" method="POST">
-                        <input type="hidden" name="contributionid" value="101">
+
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px; border-left: 4px solid var(--secondary-light-blue);">
+                        <h3 style="margin: 0 0 10px 0; font-size: 16px;">Student's Description:</h3>
+                        <p style="margin: 0; color: #555; line-height: 1.5; font-size: 14px;">
+                            <?php echo nl2br(htmlspecialchars($article['description'])); ?>
+                        </p>
+                    </div>
+
+                    <h3 style="margin-bottom: 15px;">Attached Files</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
                         
-                        <div style="margin-bottom: 25px;">
-                            <label style="font-weight: 600; color: var(--text-dark); display: block; margin-bottom: 8px;">Your Feedback Comment</label>
-                            <p style="font-size: 12px; color: var(--text-light); margin-bottom: 12px;">This feedback will be visible to the student to help them improve their work.</p>
-                            <textarea name="comment_text" rows="6" placeholder="Write your required feedback here..." required style="width: 100%; padding: 15px; border: 1px solid var(--secondary-light-blue); border-radius: 6px; resize: vertical; font-family: inherit; font-size: 14px; outline: none;"></textarea>
-                        </div>
-
-                        <div style="background-color: var(--bg-page); padding: 20px; border-radius: 8px; border: 1px solid var(--secondary-light-blue); margin-bottom: 25px;">
-                            <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--primary-navy);">Publication Decision</h3>
-                            <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
-                                <input type="checkbox" name="is_selected" value="1" style="margin-top: 3px; width: 16px; height: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #ddd; border-radius: 6px; background: white;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="material-symbols-outlined" style="color: #004080; font-size: 32px;">description</span>
                                 <div>
-                                    <span style="font-weight: 600; font-size: 14px; color: var(--text-dark); display: block;">Select this article for publication</span>
-                                    <span style="font-size: 12px; color: var(--text-light); line-height: 1.4; display: block; margin-top: 4px;">Checking this box will make the article available for the Marketing Manager to download in the final ZIP file.</span>
+                                    <strong style="display: block; font-size: 14px;">Primary Document (Word)</strong>
+                                    <span style="font-size: 12px; color: #888;"><?php echo htmlspecialchars($article['filepath1']); ?></span>
                                 </div>
-                            </label>
+                            </div>
+                            <a href="../../uploads/articles/<?php echo htmlspecialchars($article['filepath1']); ?>" download class="cta-btn" style="padding: 6px 15px; text-decoration: none; font-size: 13px;">
+                                <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">download</span> Download
+                            </a>
                         </div>
 
-                        <div style="display: flex; gap: 15px; justify-content: flex-end;">
-                            <button type="button" class="btn-secondary">Save Draft</button>
-                            <button type="submit" class="btn-primary">
-                                <span class="material-symbols-outlined" style="font-size: 18px;">send</span> Submit Review
-                            </button>
+                        <?php if(!empty($article['filepath2'])): ?>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #ddd; border-radius: 6px; background: white;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="material-symbols-outlined" style="color: #28a745; font-size: 32px;">image</span>
+                                <div>
+                                    <strong style="display: block; font-size: 14px;">Supporting Image 1</strong>
+                                    <span style="font-size: 12px; color: #888;"><?php echo htmlspecialchars($article['filepath2']); ?></span>
+                                </div>
+                            </div>
+                            <a href="../../uploads/images/<?php echo htmlspecialchars($article['filepath2']); ?>" target="_blank" download class="cta-btn" style="padding: 6px 15px; text-decoration: none; font-size: 13px; background: #6c757d;">
+                                <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">download</span> Download
+                            </a>
                         </div>
-                    </form>
+                        <?php endif; ?>
+
+                        <?php if(!empty($article['filepath3'])): ?>
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border: 1px solid #ddd; border-radius: 6px; background: white;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <span class="material-symbols-outlined" style="color: #28a745; font-size: 32px;">image</span>
+                                <div>
+                                    <strong style="display: block; font-size: 14px;">Supporting Image 2</strong>
+                                    <span style="font-size: 12px; color: #888;"><?php echo htmlspecialchars($article['filepath3']); ?></span>
+                                </div>
+                            </div>
+                            <a href="../../uploads/images/<?php echo htmlspecialchars($article['filepath3']); ?>" target="_blank" download class="cta-btn" style="padding: 6px 15px; text-decoration: none; font-size: 13px; background: #6c757d;">
+                                <span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">download</span> Download
+                            </a>
+                        </div>
+                        <?php endif; ?>
+
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="documentPreviewModal" class="preview-modal-overlay">
-            <div class="preview-header">
-                <h3 style="margin: 0; font-weight: 500;" id="previewTitle">Secure Document Preview</h3>
-                <button class="preview-close" id="closePreviewBtn">&times;</button>
-            </div>
-            <div class="preview-frame-container">
-                <div class="mockup-viewer">
-                    <span class="material-symbols-outlined" style="font-size: 48px; color: var(--secondary-light-blue); margin-bottom: 15px;">visibility</span>
-                    <h2>Document Rendering...</h2>
-                    <p>The backend will embed the requested Word document or image here for safe, read-only viewing.</p>
+                <div class="card" style="height: fit-content;">
+                    <h2 style="margin-top: 0; font-size: 20px; border-bottom: 1px solid #eee; padding-bottom: 15px;">Coordinator Review</h2>
+                    
+                    <form method="POST" action="">
+                        <input type="hidden" name="contributionid" value="<?php echo $article['contributionid']; ?>">
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 8px; color: #444; font-size: 14px;">Final Decision</label>
+                            <select name="status" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                                <option value="">Select a status...</option>
+                                <option value="selected" <?php if($article['status'] == 'selected') echo 'selected'; ?>>✅ Selected (Approve)</option>
+                                <option value="rejected" <?php if($article['status'] == 'rejected') echo 'selected'; ?>>❌ Rejected</option>
+                            </select>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; font-weight: bold; margin-bottom: 8px; color: #444; font-size: 14px;">Private Feedback Notes</label>
+                            <textarea name="comment" rows="5" placeholder="Write feedback here..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
+                        </div>
+
+                        <button type="submit" name="submit_review" class="cta-btn" style="width: 100%; font-size: 16px; padding: 12px; background: #28a745;">
+                            <span class="material-symbols-outlined" style="vertical-align: middle;">check_circle</span> Confirm Decision
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

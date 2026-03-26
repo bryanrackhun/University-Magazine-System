@@ -19,10 +19,22 @@
         
         <div class="main">
             <div class="stats-header">
-                <h1>System-Wide Statistics</h1>
-                <p>Comprehensive breakdown of university contributions and technical analytics.</p>
+                <div class="header-titles">
+                    <h1>System-Wide Statistics</h1>
+                    <p>Comprehensive breakdown of university contributions and technical analytics.</p>
+                </div>
+                
+                <div class="filter-container">
+                    <label for="academic-year">
+                        <span class="material-symbols-outlined" style="font-size: 20px;">calendar_month</span> Academic Year:
+                    </label>
+                    <select name="academic_year" id="academic-year">
+                        <option value="2025-2026" selected>2025-2026</option>
+                        <option value="2024-2025">2024-2025</option>
+                        <option value="2023-2024">2023-2024</option>
+                    </select>
+                </div>
             </div>
-
             <h2 class="stats-section-title">Academic Engagement</h2>
             <div class="stats-grid">
                 

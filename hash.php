@@ -1,0 +1,1 @@
+<?php echo password_hash("UniMag123", PASSWORD_DEFAULT); ?>

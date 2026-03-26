@@ -39,7 +39,11 @@ if ($user && password_verify($password, $user['password_hash'])) {
         header("Location: ../administrator/admin-dashboard.php");
         exit();
     }
-    elseif ($user['roleid'] == 3) {
+    elseif($user['roleid'] == 3){
+        header("Location: ../marketing coordinator/manage-contribution.php");
+        exit();
+    }
+    elseif ($user['roleid'] == 4) {
         header("Location: ../student/student-panel.php");
         exit();
     }
